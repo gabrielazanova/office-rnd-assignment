@@ -1,0 +1,30 @@
+.topBar {
+    padding: 0;
+}
+
+.linkBtn {
+    text-decoration: none;
+    color: #777777;
+    font-size: 14px;
+}
+
+.topBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.deleteBtn {
+    background-color: #C72929;
+    color: #FFFFFF;
+    width: 107px;
+    height: 36px;
+}
+
+.addBtn {
+    background-color: #2E3ED0;
+    color: #FFFFFF;
+    width: 107px;
+    height: 36px;
+    margin-left: 15px;
+}

@@ -1,0 +1,14 @@
+.App {
+  /* background: linear-gradient(#F1F2F7, #F7F8FC, #F9F9FB); */
+  background-color: #F1F2F7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 20px;
+}
+
+.App #mainpart{
+  margin-top: 20px;
+  flex-grow: 1;
+}
