@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { resolve } from './resolve.js'
+import resolve from './resolve.js'
 
 var baseURL = 'https://staging.officernd.com/api/v1/organizations/assignment-demo'
 var token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkODM5MzJiZTU5YmU1MjcwNGMzMGZhOSIsImlhdCI6MTYwNTg3NTc5OCwiZXhwIjoxNjM3NDExNzk4fQ.U83_KnUAkPoI65NPwGyET_4HNiF4Lvd7pl6RLHhWSFM'

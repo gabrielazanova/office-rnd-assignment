@@ -1,26 +1,42 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import React from 'react'
 import '../style/MembersTable.css'
+import React from 'react'
+import Table from 'react-bootstrap/Table'
 
 export default class MembersTable extends React.Component {
+
     render() {
+        const renderMember = (members, index) => {
+            return (
+                <tr key={index}>
+                    <td>{members.name}</td>
+                    <td>{members.team}</td>
+                    <td>{members.calculatedStatus}</td>
+                    <td>{members.createdAt}</td>
+                    <td>{members.office}</td>
+                </tr>
+            )
+        }
+
         return (
             <div className="container-fluid membersTable">
                 <div className="row">
-                    <div className="col-6">
-                        Hey 1
-                    </div>
-                    <div className="col-6">
-                        Hey 2
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-6">
-                        Hey 3
-                    </div>
-                    <div className="col-6">
-                        Hey 4
-                    </div>
+                    {this.props.members.length > 0 ?
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>MEMBER</th>
+                                <th>TEAM</th>
+                                <th>STATUS/LABEL</th>
+                                <th>CREATED AT</th>
+                                <th>LOCATION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.members.map(renderMember)}
+                        </tbody>
+                    </Table> :
+                    <div>No data</div> }
                 </div>
             </div>
         );

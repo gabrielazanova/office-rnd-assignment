@@ -3,9 +3,40 @@
 }
 
 .linkBtn {
+    display: inline-block;
     text-decoration: none;
     color: #777777;
     font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    font-family: 'Montserrat';
+}
+
+.linkBtn:hover {
+    color: #2E55D0;
+    font-weight: 700;
+}
+
+.linkBtn:hover::after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid;
+    margin: 0 auto;
+}
+
+.linkBtn:focus {
+    color: #2E55D0;
+    font-weight: 700;
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.linkBtn:focus::after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid;
+    margin: 0 auto;
 }
 
 .topBtns {
@@ -14,17 +45,21 @@
     justify-content: flex-end;
 }
 
+.styleTopBtns {
+    color: #FFFFFF;
+    height: 36px;
+    border-radius: 3px;
+    border-color: transparent;
+    pointer-events: none;
+}
+
 .deleteBtn {
     background-color: #C72929;
-    color: #FFFFFF;
     width: 107px;
-    height: 36px;
 }
 
 .addBtn {
     background-color: #2E3ED0;
-    color: #FFFFFF;
-    width: 107px;
-    height: 36px;
+    width: 133px;
     margin-left: 15px;
 }
