@@ -45,20 +45,21 @@
     justify-content: flex-end;
 }
 
-.styleTopBtns {
+.styleTopBtns, .styleTopBtns:focus, .styleTopBtns:active, .styleTopBtns:hover {
     color: #FFFFFF;
     height: 36px;
     border-radius: 3px;
     border-color: transparent;
-    pointer-events: none;
+    outline: none;
+    box-shadow: none;
 }
 
-.deleteBtn {
+.deleteBtn, .deleteBtn:hover, .deleteBtn:focus, .deleteBtn:active {
     background-color: #C72929;
     width: 107px;
 }
 
-.addBtn {
+.addBtn, .addBtn:hover, .addBtn:focus, .addBtn:active {
     background-color: #2E3ED0;
     width: 133px;
     margin-left: 15px;
