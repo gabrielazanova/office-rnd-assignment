@@ -1,12 +1,10 @@
 import '../style/App.css';
 import React from 'react';
-// import { Button } from 'react-bootstrap'
 import { Card } from 'react-bootstrap'
 import Topbar from '../components/Topbar.js';
 import MembersTable from '../components/MembersTable.js';
 import MemberTypes from '../constants/MemberTypesEnum.js'
-// import AppController from './AppController';
-import { getMembers } from '../api/api';
+import { getMembers, getOffices, getTeams } from '../api/api';
 
 
 export default class App extends React.Component {
@@ -22,6 +20,8 @@ export default class App extends React.Component {
       membersState: MemberTypes.all,
       membersCount: [],
       error: null,
+      teams: {},
+      offices: {}
     }
     this.onMembersStateChange = this.onMembersStateChange.bind(this)
   }
@@ -36,12 +36,16 @@ export default class App extends React.Component {
       this.setState({ error: members.error })
     }
     else {
+      this.toGetOffices()
+      this.toGetTeams()
+
       this.setState({ members: members.data })
       this.setState({ membersShow: members.data })
       this.setState({ leadMembers: this.state.members.filter(this.getLeadMembers)})
       this.setState({ dropInMembers: this.state.members.filter(this.getDropInMembers)})
       this.setState({ activeMembers: this.state.members.filter(this.getActiveMembers)})
       this.setState({ formerMembers: this.state.members.filter(this.getFormerMembers)})
+      
       this.setState({ membersCount: 
         [ this.state.members.length, 
           this.state.leadMembers.length, 
@@ -50,6 +54,38 @@ export default class App extends React.Component {
           this.state.formerMembers.length
         ] 
       })
+    }
+  }
+
+  async toGetTeams() {
+    var teamsDict = {}
+    const teams = await getTeams()
+    if (teams.error) {}
+    else {
+      for (const team of teams.data) {
+        //check if the team is in the dictionary; if not, add it
+        if (!teamsDict.hasOwnProperty(`${team._id}`)) {
+          teamsDict[`${team._id}`] = team.name
+        }
+      }
+
+      this.setState({teams: teamsDict})
+    }
+  }
+
+  async toGetOffices() {
+    var officesDict = {}
+    const offices = await getOffices()
+    if (offices.error) {}
+    else {
+      for (const office of offices.data) {
+        //check if the office is in the dictionary; if not, add it
+        if (!officesDict.hasOwnProperty(`${office._id}`)) {
+          officesDict[`${office._id}`] = office.name
+        }
+      }
+
+      this.setState({offices: officesDict})
     }
   }
 
@@ -99,7 +135,9 @@ export default class App extends React.Component {
           <Card id="mainpart">
             <MembersTable 
               members={this.state.membersShow} 
-              membersState={this.state.membersState} />
+              membersState={this.state.membersState} 
+              offices={this.state.offices}
+              teams={this.state.teams}/>
           </Card>
         </div>
       </div>

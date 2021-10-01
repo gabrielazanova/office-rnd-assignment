@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style/MembersTable.css'
 import React from 'react'
 import Table from 'react-bootstrap/Table'
+import Moment from 'react-moment'
 
 export default class MembersTable extends React.Component {
 
@@ -10,10 +11,10 @@ export default class MembersTable extends React.Component {
             return (
                 <tr key={index}>
                     <td>{members.name}</td>
-                    <td>{members.team}</td>
+                    <td>{members.hasOwnProperty('team') ? this.props.teams[`${members.team}`] : '-' }</td>
                     <td>{members.calculatedStatus}</td>
-                    <td>{members.createdAt}</td>
-                    <td>{members.office}</td>
+                    <td>{<Moment format="DD MMM YYYY">{members.createdAt}</Moment>}</td>
+                    <td>{this.props.offices[`${members.office}`]}</td>
                 </tr>
             )
         }
