@@ -11,8 +11,7 @@ export default class Topbar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            showAddMember: false,
-            errors: []
+            showAddMember: false
         }
     }
 
@@ -20,8 +19,8 @@ export default class Topbar extends React.Component {
         this.props.onStateChange(newMembersState)
     }
 
-    changeShowAddMember(newState) {
-        this.setState({ showAddMember: newState })
+    showAddMember(nextState) {
+        this.setState({ showAddMember: nextState })
     }
 
     deleteUsers = async () => {
@@ -30,13 +29,10 @@ export default class Topbar extends React.Component {
                 const users = await deleteMember(id)
     
                 if (users.error) {
-                    // TODO add error alert
-                    // window.location.reload()
-                    this.state.errors.push(users.error)
+                    alert("An error occurred while trying to delete a user :(")
                 }
                 else (
-                    // TODO add success alert
-                    this.state.errors.push("")
+                    alert("All members deleted successfully!")
                 )
             }
             this.props.onMembersToBeDeleted()
@@ -86,15 +82,14 @@ export default class Topbar extends React.Component {
                     </div>
                     <div className="col-4 topBtns">
                         <Button className="styleTopBtns deleteBtn" size="sm" onClick={this.deleteUsers}>Delete</Button>
-                        <Button className="styleTopBtns addBtn" size="sm" onClick={() => this.changeShowAddMember(true)}>Add Member</Button>
+                        <Button className="styleTopBtns addBtn" size="sm" onClick={() => this.showAddMember(true)}>Add Member</Button>
                     </div>
 
                     <AddMember
                         show={this.state.showAddMember}
-                        onHide={() => this.changeShowAddMember(false)}
+                        onHide={() => this.showAddMember(false)}
                         offices={this.props.offices}
                         teams={this.props.teams} />
-
                 </div>
             </div>
         );

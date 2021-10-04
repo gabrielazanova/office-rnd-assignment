@@ -32,6 +32,13 @@ export default class App extends React.Component {
     this.toGetMembers()
   }
 
+  // componentDidUpdate(prevProps, nextProps) {
+  //   if (prevProps !== this.props) {
+  //     console.log(nextProps);
+  //     this.toGetMembers()
+  //   }
+  // }
+
   async toGetMembers() {
     const members = await getMembers()
     if (members.error) {
@@ -93,7 +100,7 @@ export default class App extends React.Component {
   }
 
   onMembersToBeDeletedChange(newToBeDeleted) {
-    this.setState({toBeDeleted: newToBeDeleted})
+    this.setState({ toBeDeleted: newToBeDeleted })
   }
 
   onMembersStateChange(newState) {
@@ -134,18 +141,18 @@ export default class App extends React.Component {
     return (
       <div>
         <div className="App">
-          <Topbar 
-            membersState={this.state.membersState} 
-            onStateChange={this.onMembersStateChange} 
+          <Topbar
+            membersState={this.state.membersState}
+            onStateChange={this.onMembersStateChange}
             membersCount={this.state.membersCount}
-            toBeDeleted={this.state.toBeDeleted} 
-            onMembersToBeDeleted={this.onMembersToBeDeletedChange} 
+            toBeDeleted={this.state.toBeDeleted}
+            onMembersToBeDeleted={this.onMembersToBeDeletedChange}
             offices={this.state.offices}
-            teams={this.state.teams}/>
+            teams={this.state.teams} />
           <Card id="mainpart">
-            <MembersTable 
-              members={this.state.membersShow} 
-              membersState={this.state.membersState} 
+            <MembersTable
+              members={this.state.membersShow}
+              membersState={this.state.membersState}
               offices={this.state.offices}
               teams={this.state.teams}
               onMembersToBeDeleted={this.onMembersToBeDeletedChange} />

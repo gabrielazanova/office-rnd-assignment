@@ -39,12 +39,9 @@ export default class AddMember extends React.Component {
         var postingMember = await addMember(this.state.name.toString(), this.state.email.toString(), "", (new Date()).toString(), this.state.company.toString(), this.state.startDate.toString(), this.state.location.toString())
 
         if (postingMember.error) {
-            // TODO add error alert
             window.location.reload()
-
         }
         else {
-            // TODO add success alert
             window.location.reload()
         }
     };
@@ -77,7 +74,7 @@ export default class AddMember extends React.Component {
         let items = []
 
         for (let [key, value] of Object.entries(options)) {
-            items.push(<option value={key}>{value}</option>)
+            items.push(<option key={key} value={key}>{value}</option>)
         }
 
         return items

@@ -6,7 +6,6 @@ import { Form, Row, Col, InputGroup } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { customFilter, FILTER_TYPES } from 'react-bootstrap-table2-filter';
 import Select from 'react-select';
-// import SearchIcon from '@material-ui/icons/Search';
 import Moment from 'react-moment';
 
 export default class MembersTable extends React.Component {
@@ -38,15 +37,15 @@ export default class MembersTable extends React.Component {
         var data = []
         for (const member of this.props.members) {
             data.push({
-                _id: member._id, 
+                _id: member._id,
                 name: member.name,
                 team: member.hasOwnProperty('team') ? this.props.teams[member.team] : '-',
                 calculatedStatus: member.calculatedStatus,
                 createdAt: <Moment format="DD MMM YYYY">{member.createdAt}</Moment>,
-                office: this.props.offices[member.office]
-            }); 
+                office: this.props.offices[member.office],
+                image: member.image
+            });
         }
-
         return data
     }
 
@@ -59,14 +58,23 @@ export default class MembersTable extends React.Component {
         var companyOptions = [
             { value: '', label: 'All' }
         ]
-   
+
         for (let [key, value] of Object.entries(this.props.offices)) {
-            locationOptions.push({value: key, label: value});
+            locationOptions.push({ value: value, label: value });
         }
 
         for (let [key, value] of Object.entries(this.props.teams)) {
-            companyOptions.push({value: key, label: value});
+            companyOptions.push({ value: value, label: value });
         }
+
+        const rowStyle = (row, rowIndex) => {
+            const style = {};
+            style.fontSize = 14;
+            style.fontWeight = 400;
+            style.fontFamily = 'Source Sans Pro';
+            return style;
+        };
+
 
         const selectRow = {
             mode: 'checkbox',
@@ -97,17 +105,26 @@ export default class MembersTable extends React.Component {
                     this.state.selectedRows.length = 0
                 }
                 this.props.onMembersToBeDeleted(this.state.selectedRows)
-            }
+            },
+            style: { backgroundColor: "#F1F2F7" }
         }
 
         const columns = [{
-            dataField: 'name',
-            text: 'MEMBER',
+            dataField: "name",
+            text: "MEMBER",
+            formatter: (cell, row) => {
+                if (row.image != null && row.image.length > 0) {
+                    return <div className="membersImageName"><img src={row.image} style={{ width: 40, height: 30 }} className="membersImage" /> <div>{row.name}</div></div>;
+                }
+                else {
+                    return <div>{row.name}</div>
+                }
+            },
             filter: customFilter(),
             filterRenderer: (onFilter) => {
                 this.onMemberNameFilter = onFilter
                 return null
-            },
+            }
         }, {
             dataField: 'team',
             text: 'TEAM',
@@ -140,8 +157,8 @@ export default class MembersTable extends React.Component {
         }]
 
         return (
-            <div className="container-fluid membersTable">
-                <Row>
+            <div className="container-fluid">
+                <Row className="membersTable">
                     <Col xs={6} md={2}>
                         <Form>
                             <Form.Group className="mb-3" >
@@ -175,8 +192,9 @@ export default class MembersTable extends React.Component {
                             selectRow={selectRow}
                             columns={columns}
                             bordered={false}
-                            filter={filterFactory()} /> :
-                        <div>No data</div>
+                            filter={filterFactory()}
+                            rowStyle={rowStyle} /> :
+                    <div>No data</div>
                     }
                 </Row>
             </div>
