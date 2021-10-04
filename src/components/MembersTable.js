@@ -2,12 +2,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import '../style/MembersTable.css';
 import React from 'react';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col, InputGroup } from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { customFilter, FILTER_TYPES } from 'react-bootstrap-table2-filter';
 import Select from 'react-select';
-// import SearchIcon from '@mui/icons-material/Search';
-// import { InputAdornment } from '@material-ui/core';
+// import SearchIcon from '@material-ui/icons/Search';
 // import Moment from 'react-moment';
 
 export default class MembersTable extends React.Component {
@@ -36,6 +35,22 @@ export default class MembersTable extends React.Component {
     }
 
     render() {
+
+        var locationOptions = [
+            { value: '', label: 'All' }
+        ]
+
+        var companyOptions = [
+            { value: '', label: 'All' }
+        ]
+   
+        for (let [key, value] of Object.entries(this.props.offices)) {
+            locationOptions.push({value: key, label: value});
+        }
+
+        for (let [key, value] of Object.entries(this.props.teams)) {
+            companyOptions.push({value: key, label: value});
+        }
 
         const selectRow = {
             mode: 'checkbox',
@@ -68,20 +83,6 @@ export default class MembersTable extends React.Component {
                 this.props.onMembersToBeDeleted(this.state.selectedRows)
             }
         }
-
-        const locationOptions = [
-            { value: '', label: 'All' },
-            { value: '5d81dcfcb18f3e0010f50407', label: '5d81dcfcb18f3e0010f50407' },
-            { value: '5d839686e59be52704c30fbb', label: 'Strawberry' }
-        ]
-
-        const companyOptions = [
-            { value: '', label: 'All' },
-            { value: '5d837099d4809b00104883ac', label: '5d837099d4809b00104883ac' },
-            { value: '5d8374f9d4809b00104883ee', label: '5d8374f9d4809b00104883ee' },
-            { value: '5d8381c6d4809b0010495ffa', label: '5d8381c6d4809b0010495ffa' },
-            { value: '5d81dcfcb18f3e0010f5040d', label: '5d81dcfcb18f3e0010f5040d' }
-        ]
 
         const members = this.props.members
         const columns = [{
@@ -129,10 +130,15 @@ export default class MembersTable extends React.Component {
                     <Col xs={6} md={2}>
                         <Form>
                             <Form.Group className="mb-3" >
-                                {/* <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment> */}
-                                <Form.Control type="text" onChange={this.onMemberNameChange}/>
+                                <InputGroup>
+                                    {/* <InputGroup.Prepend>
+                                        <InputGroup.Text>
+                                            <SearchIcon />
+                                        </InputGroup.Text>
+                                    </InputGroup.Prepend> */}
+                                    <Form.Control type="text" onChange={this.onMemberNameChange} placeholder="Search" />
+
+                                </InputGroup>
                             </Form.Group>
                         </Form>
                     </Col>

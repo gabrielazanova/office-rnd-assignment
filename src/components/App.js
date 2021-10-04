@@ -130,7 +130,6 @@ export default class App extends React.Component {
     return member.calculatedStatus === MemberTypes.former
   }
 
-
   render() {
     return (
       <div>
@@ -140,7 +139,9 @@ export default class App extends React.Component {
             onStateChange={this.onMembersStateChange} 
             membersCount={this.state.membersCount}
             toBeDeleted={this.state.toBeDeleted} 
-            onMembersToBeDeleted={this.onMembersToBeDeletedChange} />
+            onMembersToBeDeleted={this.onMembersToBeDeletedChange} 
+            offices={this.state.offices}
+            teams={this.state.teams}/>
           <Card id="mainpart">
             <MembersTable 
               members={this.state.membersShow} 

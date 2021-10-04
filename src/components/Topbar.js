@@ -92,7 +92,8 @@ export default class Topbar extends React.Component {
                     <AddMember
                         show={this.state.showAddMember}
                         onHide={() => this.changeShowAddMember(false)}
-                        teams={this.props.team} />
+                        offices={this.props.offices}
+                        teams={this.props.teams} />
 
                 </div>
             </div>
