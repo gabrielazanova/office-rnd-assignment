@@ -34,10 +34,12 @@ function AddMember(props) {
         var postingMember = await addMember(name.toString(), email.toString(), "", (new Date()).toString(), company.toString(), startDate.toString(), location.toString())
 
         if (postingMember.error) {
+            // TODO add error alert
             window.location.reload()
 
         }
         else {
+            // TODO add success alert
             window.location.reload()
         }
     };
