@@ -25,15 +25,19 @@ export default class Topbar extends React.Component {
 
     deleteUsers = async () => {
         if (!(this.props.toBeDeleted.length === 0)) {
+            var error = false
             for (const id of this.props.toBeDeleted) {
                 const users = await deleteMember(id)
     
                 if (users.error) {
-                    alert("An error occurred while trying to delete a user :(")
+                    error = true
                 }
-                else (
-                    alert("All members deleted successfully!")
-                )
+            }
+            if (error) {
+                alert("An error occurred while trying to delete user(s) :(")
+            }
+            else {
+                alert("Successfully deleted all selected users!")
             }
             this.props.onMembersToBeDeleted()
             window.location.reload()

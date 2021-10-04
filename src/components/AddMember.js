@@ -39,9 +39,11 @@ export default class AddMember extends React.Component {
         var postingMember = await addMember(this.state.name.toString(), this.state.email.toString(), "", (new Date()).toString(), this.state.company.toString(), this.state.startDate.toString(), this.state.location.toString())
 
         if (postingMember.error) {
+            alert("An error occurred trying to add a member :(")
             window.location.reload()
         }
         else {
+            alert("Successfully added a member!")
             window.location.reload()
         }
     };

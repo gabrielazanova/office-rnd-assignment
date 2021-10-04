@@ -6,7 +6,6 @@ import MembersTable from '../components/MembersTable.js';
 import MemberTypes from '../constants/MemberTypesEnum.js';
 import { getMembers, getOffices, getTeams } from '../api/api';
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -29,24 +28,17 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.toGetMembers()
+    this.getMembers()
   }
 
-  // componentDidUpdate(prevProps, nextProps) {
-  //   if (prevProps !== this.props) {
-  //     console.log(nextProps);
-  //     this.toGetMembers()
-  //   }
-  // }
-
-  async toGetMembers() {
+  async getMembers() {
     const members = await getMembers()
     if (members.error) {
       this.setState({ error: members.error })
     }
     else {
-      this.toGetOffices()
-      this.toGetTeams()
+      this.getOffices()
+      this.getTeams()
 
       this.setState({ members: members.data })
       this.setState({ membersShow: members.data })
@@ -67,7 +59,7 @@ export default class App extends React.Component {
     }
   }
 
-  async toGetTeams() {
+  async getTeams() {
     var teamsDict = {}
     const teams = await getTeams()
     if (teams.error) { }
@@ -83,7 +75,7 @@ export default class App extends React.Component {
     }
   }
 
-  async toGetOffices() {
+  async getOffices() {
     var officesDict = {}
     const offices = await getOffices()
     if (offices.error) { }
