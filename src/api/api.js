@@ -23,19 +23,26 @@ export async function getTeams() {
 }
 
 export async function addMember(name, email, image, createdAt, team, startDate, office) {
-    return await resolve(axios.post(baseURL + '/members', {
-        headers: { 'Authorization': token },
-        body: {
-            "name": name,
-            "email": email,
-            "image": image,
-            "createdAt": createdAt,
-            "team": team,
-            "startDate": startDate,
-            "office": office
+    return await axios.post(baseURL + '/members',
+        {
+            name: name,
+            email: email,
+            image: image,
+            createdAt: createdAt,
+            team: team,
+            startDate: startDate,
+            office: office
+        },
+        {
+            headers: {
+                "Authorization": token,
+            },
         }
-    }).then(res => res.data));
+    )
+    .then(res => res.data);
 }
+
+
 
 export async function deleteMember(id) {
     return await resolve(axios.delete(baseURL + '/members/' + id, {
