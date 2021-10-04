@@ -7,7 +7,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { customFilter, FILTER_TYPES } from 'react-bootstrap-table2-filter';
 import Select from 'react-select';
 // import SearchIcon from '@material-ui/icons/Search';
-// import Moment from 'react-moment';
+import Moment from 'react-moment';
 
 export default class MembersTable extends React.Component {
 
@@ -32,6 +32,22 @@ export default class MembersTable extends React.Component {
 
     onCompanyChange = (optionSelected) => {
         this.onCompanyFilter(optionSelected.value);
+    }
+
+    setData() {
+        var data = []
+        for (const member of this.props.members) {
+            data.push({
+                _id: member._id, 
+                name: member.name,
+                team: member.hasOwnProperty('team') ? this.props.teams[member.team] : '-',
+                calculatedStatus: member.calculatedStatus,
+                createdAt: <Moment format="DD MMM YYYY">{member.createdAt}</Moment>,
+                office: this.props.offices[member.office]
+            }); 
+        }
+
+        return data
     }
 
     render() {
@@ -84,7 +100,6 @@ export default class MembersTable extends React.Component {
             }
         }
 
-        const members = this.props.members
         const columns = [{
             dataField: 'name',
             text: 'MEMBER',
@@ -131,13 +146,7 @@ export default class MembersTable extends React.Component {
                         <Form>
                             <Form.Group className="mb-3" >
                                 <InputGroup>
-                                    {/* <InputGroup.Prepend>
-                                        <InputGroup.Text>
-                                            <SearchIcon />
-                                        </InputGroup.Text>
-                                    </InputGroup.Prepend> */}
                                     <Form.Control type="text" onChange={this.onMemberNameChange} placeholder="Search" />
-
                                 </InputGroup>
                             </Form.Group>
                         </Form>
@@ -161,9 +170,9 @@ export default class MembersTable extends React.Component {
                     {this.props.members.length > 0 ?
                         <BootstrapTable
                             bootstrap4
-                            keyField='_id'
+                            data={this.setData()}
+                            keyField={'_id'}
                             selectRow={selectRow}
-                            data={members}
                             columns={columns}
                             bordered={false}
                             filter={filterFactory()} /> :
